@@ -32,6 +32,10 @@ dependencies {
 	implementation 'junit:junit:4.13.2'
 }
 
+test {
+	useJUnitPlatform()
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
