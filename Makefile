@@ -6,3 +6,7 @@ build:
 	
 run-dist:
 	./build/install/app/bin/app
+	
+reports:
+	./gradlew test
+	./gradlew jacocoTestReport
