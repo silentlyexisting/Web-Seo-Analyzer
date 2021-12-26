@@ -25,3 +25,10 @@ application {
 repositories {
 	mavenCentral()
 }
+
+jacocoTestReport {
+	dependsOn test
+ 	reports {
+    		xml.required = true
+	}
+}
