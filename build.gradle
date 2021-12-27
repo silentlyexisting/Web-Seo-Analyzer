@@ -6,9 +6,9 @@
  */
  
 plugins {
-  id 'com.github.ben-manes.versions' version '0.39.0'
-  id 'application'
-  id 'checkstyle'
+	id 'com.github.ben-manes.versions' version '0.39.0'
+	id 'application'
+	id 'checkstyle'
 }
 
 group = 'hexlet.code'
@@ -24,6 +24,11 @@ application {
 
 repositories {
 	mavenCentral()
+}
+
+dependencies {
+	implementation 'io.javalin:javalin:4.0.1'
+	implementation 'org.slf4j:slf4j-simple:1.7.31'
 }
 
 task stage(dependsOn: ['clean', 'installDist'])
