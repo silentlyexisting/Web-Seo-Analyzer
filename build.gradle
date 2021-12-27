@@ -26,3 +26,5 @@ repositories {
 	mavenCentral()
 }
 
+task stage(dependsOn: ['clean', 'installDist'])
+installDist.mustRunAfter clean
