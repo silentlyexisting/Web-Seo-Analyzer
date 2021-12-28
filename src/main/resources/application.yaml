@@ -1,0 +1,9 @@
+datasource:
+  development:
+    username: username
+    password: password
+    url: "jdbc:h2:./java-project-lvl4-bd"
+
+ebean:
+  migration:
+    run: true

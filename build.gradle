@@ -31,12 +31,25 @@ dependencies {
 	implementation 'io.javalin:javalin:4.0.1'
 	implementation 'org.slf4j:slf4j-simple:1.7.31'
 
+	implementation 'org.projectlombok:lombok:1.18.22'
+	implementation 'org.projectlombok:lombok:1.18.22'
+
 	implementation 'io.ebean:ebean:12.11.5'
 	implementation 'io.ebean:querybean-generator:12.11.5'
 	implementation 'io.ebean:ebean-annotation:7.3'
+	implementation 'io.ebean:ebean-migration:12.11.2'
+	implementation 'io.ebean:ebean-ddl-generator:12.11.5'
+
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.5'
+	implementation 'javax.activation:activation:1.1.1'
 
 	implementation 'com.h2database:h2:1.4.200'
 }
 
 task stage(dependsOn: ['clean', 'installDist'])
 installDist.mustRunAfter clean
+
+task generateMigrations(type: JavaExec) {
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = 'hexlet.code.MigrationGenerator'
+}
