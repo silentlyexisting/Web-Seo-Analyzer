@@ -9,6 +9,7 @@ plugins {
 	id 'com.github.ben-manes.versions' version '0.39.0'
 	id 'application'
 	id 'checkstyle'
+	id 'io.ebean' version '12.12.1'
 }
 
 group = 'hexlet.code'
@@ -29,6 +30,12 @@ repositories {
 dependencies {
 	implementation 'io.javalin:javalin:4.0.1'
 	implementation 'org.slf4j:slf4j-simple:1.7.31'
+
+	implementation 'io.ebean:ebean:12.11.5'
+	implementation 'io.ebean:querybean-generator:12.11.5'
+	implementation 'io.ebean:ebean-annotation:7.3'
+
+	implementation 'com.h2database:h2:1.4.200'
 }
 
 task stage(dependsOn: ['clean', 'installDist'])
