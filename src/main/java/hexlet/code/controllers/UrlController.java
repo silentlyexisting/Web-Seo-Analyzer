@@ -4,6 +4,7 @@ import hexlet.code.Url;
 import hexlet.code.query.QUrl;
 import io.ebean.PagedList;
 import io.javalin.http.Handler;
+import io.javalin.http.HttpCode;
 
 import java.net.URL;
 import java.util.List;
@@ -16,7 +17,7 @@ public class UrlController {
 
         if (url == null) {
             ctx.sessionAttribute("flash", "Некорректный URL");
-            ctx.status(422);
+            ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
             ctx.redirect("/urls");
             return;
         }
@@ -27,7 +28,7 @@ public class UrlController {
 
         if (checkUrlInDb != null) {
             ctx.sessionAttribute("flash", "Страница уже существует");
-            ctx.status(418);
+            ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
             ctx.redirect("/urls");
             return;
         }
@@ -41,7 +42,7 @@ public class UrlController {
 
     public static Handler showUrls = ctx -> {
         int page = ctx.queryParamAsClass("page", Integer.class).getOrDefault(null);
-        int rowsPerPage = 10;
+        final int rowsPerPage = 10;
         int offset = (page - 1) * rowsPerPage;
 
         PagedList<Url> pagedList = new QUrl()
