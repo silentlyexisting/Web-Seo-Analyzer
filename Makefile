@@ -12,3 +12,17 @@ lint:
 
 start:
 	APP_ENV=development ./gradlew run
+
+generate-migrations:
+	./gradlew generateMigrations
+	
+check-updates:
+	./gradlew dependencyUpdates
+
+test:
+	./gradlew test
+
+report:
+	./gradlew jacocoTestReport
+
+
