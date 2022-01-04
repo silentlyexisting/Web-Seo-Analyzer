@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import hexlet.code.domain.Url;
 import hexlet.code.domain.query.QUrl;
 import io.ebean.DB;
@@ -8,7 +7,7 @@ import io.ebean.Transaction;
 import io.javalin.Javalin;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
