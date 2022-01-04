@@ -6,4 +6,9 @@ build:
 	
 run-dist:
 	./build/install/app/bin/app
-	
+
+lint:
+	./gradlew checkstyleMain checkstyleTest
+
+start:
+	APP_ENV=development ./gradlew run

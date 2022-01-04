@@ -16,14 +16,20 @@ import static io.javalin.apibuilder.ApiBuilder.get;
 public class App {
     public static void main(String[] args) {
         Javalin app = getApp();
-        app.start();
+        app.start(getPort());
     }
 
     public static Javalin getApp() {
         Javalin app = Javalin.create(javalinConfig -> {
-            javalinConfig.enableDevLogging();
-
+            if (!isProduction()) {
+                javalinConfig.enableDevLogging();
+            }
+            javalinConfig.enableWebjars();
             JavalinThymeleaf.configure(getTemplateEngine());
+        });
+
+        app.before(ctx -> {
+            ctx.attribute("ctx", ctx);
         });
 
         getRoutes(app);
@@ -31,13 +37,26 @@ public class App {
         return app;
     }
 
+    public static int getPort() {
+        String port = System.getenv().getOrDefault("PORT", "3400");
+        return Integer.valueOf(port);
+    }
+
+    private static String getMode() {
+        return System.getenv().getOrDefault("APP_ENV", "development");
+    }
+
+    private static boolean isProduction() {
+        return getMode().equals("production");
+    }
+
     private static TemplateEngine getTemplateEngine() {
         TemplateEngine templateEngine = new TemplateEngine();
-        templateEngine.addDialect(new LayoutDialect());
-        templateEngine.addDialect(new Java8TimeDialect());
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("/templates/");
         templateEngine.addTemplateResolver(templateResolver);
+        templateEngine.addDialect(new LayoutDialect());
+        templateEngine.addDialect(new Java8TimeDialect());
         return templateEngine;
     }
 
