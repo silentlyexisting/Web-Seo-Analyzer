@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +29,11 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="app" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="app" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -77,7 +80,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
     <property name="settings.editor.splitter.proportion" value="0.27619982" />
   </component>
   <component name="RecentsManager">
@@ -91,7 +94,7 @@
       <recent name="hexlet.code" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AppTest.testCreateNewUrl">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hexlet.code.App" />
       <module name="app.main" />
@@ -183,10 +186,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
         <item itemvalue="Gradle.AppTest.testCreateNewUrl" />
         <item itemvalue="Gradle.AppTest.testShowUrl" />
         <item itemvalue="Gradle.AppTest.testShowUrls" />
-        <item itemvalue="Application.App" />
         <item itemvalue="Application.MigrationGenerator" />
       </list>
     </recent_temporary>
