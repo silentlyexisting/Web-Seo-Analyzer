@@ -6,6 +6,12 @@ import hexlet.code.domain.query.QUrl;
 import hexlet.code.domain.query.QUrlCheck;
 import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +20,6 @@ import java.util.Map;
 
 public class UrlController {
     public static Handler createUrl = ctx -> {
-        String flash = "";
         try {
             URL enteredUrl = new URL(ctx.formParam("url"));
             String url = enteredUrl.getProtocol() + "://" + enteredUrl.getAuthority();
@@ -25,20 +30,19 @@ public class UrlController {
 
             if (!isUrlExist) {
                 new Url(url).save();
+                ctx.sessionAttribute("flash-type", "success");
                 ctx.sessionAttribute("flash", "Страница успешно добавлена");
                 ctx.redirect("/urls");
                 return;
             }
-            flash = "Страница уже существует";
-            ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
-            ctx.sessionAttribute("flash", flash);
-            ctx.render("index.html");
+
+            ctx.sessionAttribute("flash", "Страница уже существует");
         } catch (MalformedURLException exception) {
-            flash = "Некорректный URL";
-            ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
-            ctx.sessionAttribute("flash", flash);
-            ctx.render("index.html");
+            ctx.sessionAttribute("flash", "Некорректный URL");
         }
+        ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
+        ctx.sessionAttribute("flash-type", "danger");
+        ctx.render("index.html");
 
     };
 
@@ -79,5 +83,46 @@ public class UrlController {
         }
         ctx.attribute("url", url);
         ctx.render("urls/show.html");
+    };
+
+    public static Handler createCheck = ctx -> {
+        Long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+
+        Url url = new QUrl()
+                .id.equalTo(id)
+                .findOne();
+
+        UrlCheck urlCheck = new UrlCheck();
+        try {
+            HttpResponse<String> response = Unirest
+                    .get(url.getName())
+                    .asString();
+
+            String body = response.getBody();
+            Document doc = Jsoup.parse(body);
+
+            urlCheck.setTitle(doc.title());
+
+            Element h1Element = doc.selectFirst("h1");
+            String h1 = h1Element == null ? "" : h1Element.text();
+            urlCheck.setH1(h1);
+
+            Element descriptionElement = doc.selectFirst("meta[name=description]");
+            String description = descriptionElement == null ? "" : descriptionElement.attr("content");
+            urlCheck.setDescription(description);
+
+            urlCheck.setUrl(url);
+            urlCheck.setStatusCode(response.getStatus());
+
+            urlCheck.save();
+        } catch (UnirestException exception) {
+            ctx.status(HttpCode.BAD_REQUEST);
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.sessionAttribute("flash", "Ошибка запроса");
+            ctx.redirect("/urls/" + id);
+            return;
+        }
+        ctx.attribute("urlCheck", urlCheck);
+        ctx.redirect("/urls/" + id);
     };
 }

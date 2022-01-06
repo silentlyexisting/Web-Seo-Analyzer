@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/seoBase.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/seoBase.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,9 +51,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -96,13 +100,55 @@
       <recent name="hexlet.code" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.java-project-lvl4 [jacocoTestReport]">
+  <component name="RunManager" selected="Gradle.AppTest">
     <configuration name="AppTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="AppTest.duplicateUrlTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.duplicateUrlTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="AppTest.testNegativeCreateNewUrlTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.testNegativeCreateNewUrlTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -139,18 +185,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="install" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="install" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
-    <configuration name="report" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="report" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="test" workingDirectory="" arguments="">
         <envs />
@@ -159,18 +193,18 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.java-project-lvl4 [jacocoTestReport]" />
-      <item itemvalue="Makefile Target.install" />
-      <item itemvalue="Makefile Target.report" />
-      <item itemvalue="Makefile Target.test" />
       <item itemvalue="Gradle.AppTest" />
+      <item itemvalue="Makefile Target.test" />
+      <item itemvalue="Gradle.AppTest.testNegativeCreateNewUrlTest" />
+      <item itemvalue="Gradle.AppTest.duplicateUrlTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.java-project-lvl4 [jacocoTestReport]" />
         <item itemvalue="Gradle.AppTest" />
+        <item itemvalue="Gradle.AppTest.duplicateUrlTest" />
+        <item itemvalue="Gradle.AppTest.testNegativeCreateNewUrlTest" />
+        <item itemvalue="Gradle.java-project-lvl4 [jacocoTestReport]" />
         <item itemvalue="Makefile Target.test" />
-        <item itemvalue="Makefile Target.report" />
-        <item itemvalue="Makefile Target.install" />
       </list>
     </recent_temporary>
   </component>

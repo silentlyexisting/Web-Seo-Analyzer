@@ -68,6 +68,7 @@ public class App {
                 post(UrlController.createUrl);
                 get(UrlController.showUrls);
                 get("/{id}", UrlController.showUrl);
+                post("/{id}/checks", UrlController.createCheck);
             });
         });
     }

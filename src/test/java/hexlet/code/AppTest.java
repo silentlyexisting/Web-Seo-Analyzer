@@ -7,11 +7,14 @@ import io.ebean.Transaction;
 import io.javalin.Javalin;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,9 +24,10 @@ class AppTest {
     private static String baseUrl;
     private static Url url;
     private static Transaction transaction;
+    private static MockWebServer mockServer;
 
     @BeforeAll
-    public static void beforeAll() {
+    public static void beforeAll() throws IOException {
         app = App.getApp();
         app.start(0);
         int port = app.port();
@@ -31,6 +35,8 @@ class AppTest {
 
         url = new Url("https://examplesite.com");
         url.save();
+
+//        mockServer.start();
     }
 
     @AfterAll
@@ -106,4 +112,48 @@ class AppTest {
         assertThat(body).contains(url.getName());
         assertThat(body).contains(String.valueOf(url.getId()));
     }
+
+    @Test
+    void invalidUrlTest() {
+        HttpResponse<String> response = Unirest
+                .post(baseUrl + "/urls")
+                .field("url", "youtube.net")
+                .asString();
+
+        String body = response.getBody();
+
+        Url url = new QUrl()
+                .name.equalTo("youtube.net")
+                .findOne();
+
+        assertThat(response.getStatus()).isEqualTo(422);
+        assertThat(url).isNull();
+        assertThat(body).contains("Некорректный URL");
+        assertThat(body).doesNotContain("youtube.net");
+    }
+
+    @Test
+    void duplicateUrlTest() {
+        HttpResponse<String> response = Unirest
+                .post(baseUrl + "/urls")
+                .field("url", "https://testsite.com")
+                .asString();
+        String body = response.getBody();
+
+        assertThat(response.getStatus()).isEqualTo(422);
+        assertThat(body).contains("Страница уже существует");
+    }
+
+//    @Test
+//    void mockTest() throws IOException {
+//        String mockUrl = mockServer.url("/").toString();
+//
+//        Path path = Paths.get("src/test/resources/fixtures/test.html").toAbsolutePath().normalize();
+//        String data = Files.readString(path);
+//
+//        MockResponse mockResponse = new MockResponse()
+//                .addHeader("Content-Type", "text/html; charset=utf-8")
+//                .setResponseCode(200)
+//                .setBody(data);
+//    }
 }

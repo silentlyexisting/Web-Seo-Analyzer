@@ -24,5 +24,3 @@ test:
 
 report:
 	./gradlew jacocoTestReport
-
-
