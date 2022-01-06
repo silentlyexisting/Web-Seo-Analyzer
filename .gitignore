@@ -8,4 +8,5 @@ build
 .idea
 
 # Ignore DB files
-*.db
+*.mv.db
+*.trace.db
