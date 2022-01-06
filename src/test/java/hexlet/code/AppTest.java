@@ -73,7 +73,6 @@ class AppTest {
         HttpResponse<String> response = Unirest
                 .get(baseUrl + "/urls")
                 .asString();
-
         String body = response.getBody();
 
         assertThat(response.getStatus()).isEqualTo(200);
@@ -108,7 +107,6 @@ class AppTest {
         HttpResponse<String> response = Unirest
                 .get(baseUrl + "/urls/" + url.getId())
                 .asString();
-
         String body = response.getBody();
 
         assertThat(response.getStatus()).isEqualTo(200);
@@ -122,7 +120,6 @@ class AppTest {
                 .post(baseUrl + "/urls")
                 .field("url", "youtube.net")
                 .asString();
-
         String body = response.getBody();
 
         Url url = new QUrl()
