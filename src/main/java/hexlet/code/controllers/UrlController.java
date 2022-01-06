@@ -8,7 +8,6 @@ import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -85,7 +84,7 @@ public class UrlController {
         ctx.render("urls/show.html");
     };
 
-    public static Handler createCheck = ctx -> {
+    public static Handler checkUrl = ctx -> {
         Long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
 
         Url url = new QUrl()
@@ -93,35 +92,28 @@ public class UrlController {
                 .findOne();
 
         UrlCheck urlCheck = new UrlCheck();
-        try {
-            HttpResponse<String> response = Unirest
-                    .get(url.getName())
-                    .asString();
+        HttpResponse<String> response = Unirest
+                .get(url.getName())
+                .asString();
 
-            String body = response.getBody();
-            Document doc = Jsoup.parse(body);
+        String body = response.getBody();
+        Document doc = Jsoup.parse(body);
 
-            urlCheck.setTitle(doc.title());
+        urlCheck.setTitle(doc.title());
 
-            Element h1Element = doc.selectFirst("h1");
-            String h1 = h1Element == null ? "" : h1Element.text();
-            urlCheck.setH1(h1);
+        Element h1Element = doc.selectFirst("h1");
+        String h1 = h1Element != null ? h1Element.text() : "";
+        urlCheck.setH1(h1);
 
-            Element descriptionElement = doc.selectFirst("meta[name=description]");
-            String description = descriptionElement == null ? "" : descriptionElement.attr("content");
-            urlCheck.setDescription(description);
+        Element descriptionElement = doc.selectFirst("meta[name=description]");
+        String description = descriptionElement != null ? descriptionElement.attr("content") : "";
+        urlCheck.setDescription(description);
 
-            urlCheck.setUrl(url);
-            urlCheck.setStatusCode(response.getStatus());
+        urlCheck.setUrl(url);
+        urlCheck.setStatusCode(response.getStatus());
 
-            urlCheck.save();
-        } catch (UnirestException exception) {
-            ctx.status(HttpCode.BAD_REQUEST);
-            ctx.sessionAttribute("flash-type", "danger");
-            ctx.sessionAttribute("flash", "Ошибка запроса");
-            ctx.redirect("/urls/" + id);
-            return;
-        }
+        urlCheck.save();
+
         ctx.attribute("urlCheck", urlCheck);
         ctx.redirect("/urls/" + id);
     };

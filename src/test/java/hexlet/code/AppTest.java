@@ -7,6 +7,7 @@ import io.ebean.Transaction;
 import io.javalin.Javalin;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,8 +29,9 @@ class AppTest {
     private static Transaction transaction;
     private static MockWebServer mockServer;
 
+
     @BeforeAll
-    public static void beforeAll() throws IOException {
+    public static void beforeAll() {
         app = App.getApp();
         app.start(0);
         int port = app.port();
@@ -35,8 +39,6 @@ class AppTest {
 
         url = new Url("https://examplesite.com");
         url.save();
-
-//        mockServer.start();
     }
 
     @AfterAll
@@ -47,11 +49,13 @@ class AppTest {
     @BeforeEach
     void beforeEach() {
         transaction = DB.beginTransaction();
+        mockServer = new MockWebServer();
     }
 
     @AfterEach
-    void afterEach() {
+    void afterEach() throws IOException {
         transaction.rollback();
+        mockServer.shutdown();
     }
 
     @Test
@@ -79,10 +83,9 @@ class AppTest {
 
     @Test
     void testCreateNewUrl() {
-        HttpResponse<String> postRequest = Unirest
-                .post(baseUrl + "/urls")
+        Unirest.post(baseUrl + "/urls")
                 .field("url", "https://testsite.com")
-                .asString();
+                .asEmpty();
 
         HttpResponse<String> response = Unirest
                 .get(baseUrl + "/urls")
@@ -114,7 +117,7 @@ class AppTest {
     }
 
     @Test
-    void invalidUrlTest() {
+    void testInvalidUrl() {
         HttpResponse<String> response = Unirest
                 .post(baseUrl + "/urls")
                 .field("url", "youtube.net")
@@ -133,7 +136,7 @@ class AppTest {
     }
 
     @Test
-    void duplicateUrlTest() {
+    void testDuplicateUrl() {
         HttpResponse<String> response = Unirest
                 .post(baseUrl + "/urls")
                 .field("url", "https://testsite.com")
@@ -144,16 +147,36 @@ class AppTest {
         assertThat(body).contains("Страница уже существует");
     }
 
-//    @Test
-//    void mockTest() throws IOException {
-//        String mockUrl = mockServer.url("/").toString();
-//
-//        Path path = Paths.get("src/test/resources/fixtures/test.html").toAbsolutePath().normalize();
-//        String data = Files.readString(path);
-//
-//        MockResponse mockResponse = new MockResponse()
-//                .addHeader("Content-Type", "text/html; charset=utf-8")
-//                .setResponseCode(200)
-//                .setBody(data);
-//    }
+    @Test
+    void testCheckMockUrl() throws IOException {
+        String expected = Files.readString(Path.of("src/test/resources/fixtures/expected.html"));
+        mockServer.enqueue(new MockResponse().setBody(expected));
+        mockServer.start();
+
+        String mockUrl = mockServer.url("/").toString();
+
+        Unirest.post(baseUrl + "/urls")
+                .field("url", mockUrl)
+                .asEmpty();
+
+        String fixedMockUrl = mockUrl.substring(0, mockUrl.length() - 1);
+
+        Url currentUrl = new QUrl()
+                .name.equalTo(fixedMockUrl)
+                .findOne();
+
+        Unirest.post(baseUrl + "/urls/" + currentUrl.getId() + "/checks")
+                .asEmpty();
+
+        HttpResponse<String> response = Unirest
+                .get(baseUrl + "/urls/" + currentUrl.getId())
+                .asString();
+
+        String body = response.getBody();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(body).contains("ExpectedTitle");
+        assertThat(body).contains("ExpectedDescription");
+        assertThat(body).contains("ExpectedH1");
+    }
 }

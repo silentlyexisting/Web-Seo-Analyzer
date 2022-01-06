@@ -6,12 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/seoBase.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/seoBase.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/fixtures/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixtures/expected.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +100,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.AppTest">
+    <configuration name="MigrationGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="hexlet.code.MigrationGenerator" />
+      <module name="app.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hexlet.code.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AppTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -143,12 +155,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="AppTest.testNegativeCreateNewUrlTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AppTest.invalidUrlTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.testNegativeCreateNewUrlTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.invalidUrlTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -164,47 +176,41 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="java-project-lvl4 [jacocoTestReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AppTest.mockTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.mockTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="jacocoTestReport" />
+            <option value=":test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="test" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="test" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Gradle.java-project-lvl4 [jacocoTestReport]" />
       <item itemvalue="Gradle.AppTest" />
-      <item itemvalue="Makefile Target.test" />
-      <item itemvalue="Gradle.AppTest.testNegativeCreateNewUrlTest" />
       <item itemvalue="Gradle.AppTest.duplicateUrlTest" />
+      <item itemvalue="Gradle.AppTest.invalidUrlTest" />
+      <item itemvalue="Gradle.AppTest.mockTest" />
+      <item itemvalue="Application.MigrationGenerator" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.AppTest" />
+        <item itemvalue="Application.MigrationGenerator" />
+        <item itemvalue="Gradle.AppTest.mockTest" />
+        <item itemvalue="Gradle.AppTest.invalidUrlTest" />
         <item itemvalue="Gradle.AppTest.duplicateUrlTest" />
-        <item itemvalue="Gradle.AppTest.testNegativeCreateNewUrlTest" />
-        <item itemvalue="Gradle.java-project-lvl4 [jacocoTestReport]" />
-        <item itemvalue="Makefile Target.test" />
       </list>
     </recent_temporary>
   </component>
