@@ -9,4 +9,5 @@
 Project demo: https://stormy-anchorage-29897.herokuapp.com/
 
 Frontend (Bootstrap, CDN). Framework Javalin (Routing, Presentation). Database (ORM Ebean, Migrations, query builders). Deploy (PaaS, Heroku). HTTP (including execution of requests). Integration testing. Logging.
+
 Фронтенд (Bootstrap, CDN). Фреймворк Javalin (Маршрутизация, Представление). База данных (ORM Ebean, Миграции, query builders). Деплой (PaaS, Heroku). HTTP (в том числе выполнение запросов). Интеграционное тестирование. Логгирование.
