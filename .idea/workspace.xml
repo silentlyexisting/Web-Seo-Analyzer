@@ -96,7 +96,7 @@
       <recent name="hexlet.code" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.AppTest">
+  <component name="RunManager" selected="Application.MigrationGenerator">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hexlet.code.App" />
       <module name="app.main" />
