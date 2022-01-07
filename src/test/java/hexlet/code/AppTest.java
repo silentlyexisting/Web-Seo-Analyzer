@@ -82,7 +82,8 @@ class AppTest {
 
     @Test
     void testCreateNewUrl() {
-        Unirest.post(baseUrl + "/urls")
+        HttpResponse postResponse = Unirest
+                .post(baseUrl + "/urls")
                 .field("url", "https://testsite.com")
                 .asEmpty();
 
@@ -152,7 +153,8 @@ class AppTest {
 
         String mockUrl = mockServer.url("/").toString();
 
-        Unirest.post(baseUrl + "/urls")
+        HttpResponse firstPostResponse = Unirest
+                .post(baseUrl + "/urls")
                 .field("url", mockUrl)
                 .asEmpty();
 
@@ -162,7 +164,8 @@ class AppTest {
                 .name.equalTo(fixedMockUrl)
                 .findOne();
 
-        Unirest.post(baseUrl + "/urls/" + currentUrl.getId() + "/checks")
+        HttpResponse secondPostResponse = Unirest
+                .post(baseUrl + "/urls/" + currentUrl.getId() + "/checks")
                 .asEmpty();
 
         HttpResponse<String> response = Unirest
