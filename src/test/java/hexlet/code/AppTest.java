@@ -28,10 +28,12 @@ class AppTest {
     private static Url url;
     private static Transaction transaction;
     private static MockWebServer mockServer;
+    private static String expected;
+    private static final String FIXTURE = "src/test/resources/fixtures/expected.html";
 
 
     @BeforeAll
-    public static void beforeAll() {
+    public static void beforeAll() throws IOException {
         app = App.getApp();
         app.start(0);
         int port = app.port();
@@ -39,6 +41,9 @@ class AppTest {
 
         url = new Url("https://examplesite.com");
         url.save();
+
+        expected = Files.readString(Path.of(FIXTURE));
+        mockServer = new MockWebServer();
     }
 
     @AfterAll
@@ -49,7 +54,6 @@ class AppTest {
     @BeforeEach
     void beforeEach() {
         transaction = DB.beginTransaction();
-        mockServer = new MockWebServer();
     }
 
     @AfterEach
@@ -82,8 +86,7 @@ class AppTest {
 
     @Test
     void testCreateNewUrl() {
-        HttpResponse postResponse = Unirest
-                .post(baseUrl + "/urls")
+        Unirest.post(baseUrl + "/urls")
                 .field("url", "https://testsite.com")
                 .asEmpty();
 
@@ -147,25 +150,20 @@ class AppTest {
 
     @Test
     void testCheckMockUrl() throws IOException {
-        String expected = Files.readString(Path.of("src/test/resources/fixtures/expected.html"));
         mockServer.enqueue(new MockResponse().setBody(expected));
         mockServer.start();
 
         String mockUrl = mockServer.url("/").toString();
 
-        HttpResponse firstPostResponse = Unirest
-                .post(baseUrl + "/urls")
+        Unirest.post(baseUrl + "/urls")
                 .field("url", mockUrl)
                 .asEmpty();
 
-        String fixedMockUrl = mockUrl.substring(0, mockUrl.length() - 1);
-
         Url currentUrl = new QUrl()
-                .name.equalTo(fixedMockUrl)
+                .name.equalTo(mockUrl.replaceAll("/$", ""))
                 .findOne();
 
-        HttpResponse secondPostResponse = Unirest
-                .post(baseUrl + "/urls/" + currentUrl.getId() + "/checks")
+        Unirest.post(baseUrl + "/urls/" + currentUrl.getId() + "/checks")
                 .asEmpty();
 
         HttpResponse<String> response = Unirest

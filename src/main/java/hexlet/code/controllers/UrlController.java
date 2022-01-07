@@ -8,7 +8,6 @@ import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -93,34 +92,30 @@ public class UrlController {
                 .findOne();
 
         UrlCheck urlCheck = new UrlCheck();
-        try {
-            HttpResponse<String> response = Unirest
-                    .get(url.getName())
-                    .asString();
 
-            String body = response.getBody();
-            Document doc = Jsoup.parse(body);
+        HttpResponse<String> response = Unirest
+                .get(url.getName())
+                .asString();
 
-            urlCheck.setTitle(doc.title());
+        String body = response.getBody();
+        Document doc = Jsoup.parse(body);
 
-            Element h1Element = doc.selectFirst("h1");
-            String h1 = h1Element != null ? h1Element.text() : "";
-            urlCheck.setH1(h1);
+        urlCheck.setUrl(url);
+        urlCheck.setStatusCode(response.getStatus());
+        urlCheck.setTitle(doc.title());
 
-            Element descriptionElement = doc.selectFirst("meta[name=description]");
-            String description = descriptionElement != null ? descriptionElement.attr("content") : "";
-            urlCheck.setDescription(description);
+        Element descriptionElement = doc.selectFirst("meta[name=description]");
+        String description = descriptionElement != null ? descriptionElement.attr("content") : "";
+        urlCheck.setDescription(description);
 
-            urlCheck.setUrl(url);
-            urlCheck.setStatusCode(response.getStatus());
+        Element h1Element = doc.selectFirst("h1");
+        String h1 = h1Element != null ? h1Element.text() : "";
+        urlCheck.setH1(h1);
 
-            urlCheck.save();
-        } catch (UnirestException exception) {
-            ctx.sessionAttribute("flash-type", "danger");
-            ctx.sessionAttribute("flash", "Ой, что-то пошло не так");
-            ctx.redirect("/urls");
-        }
-        ctx.attribute("urlCheck", urlCheck);
+        urlCheck.save();
+
+        ctx.sessionAttribute("flash-type", "success");
+        ctx.sessionAttribute("flash", "Страница успешно проверена");
         ctx.redirect("/urls/" + id);
     };
 }

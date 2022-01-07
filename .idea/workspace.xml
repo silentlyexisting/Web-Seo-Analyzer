@@ -7,6 +7,10 @@
     <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/controllers/UrlController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/h2/1.0__initial.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/model/1.0__initial.model.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/postgres/1.0__initial.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hexlet/code/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +100,7 @@
       <recent name="hexlet.code" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MigrationGenerator">
+  <component name="RunManager" selected="Gradle.AppTest">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hexlet.code.App" />
       <module name="app.main" />
@@ -144,12 +148,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="AppTest.mockTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AppTest.testCheckMockUrl" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.mockTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;hexlet.code.AppTest.testCheckMockUrl&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -190,16 +194,16 @@
       <item itemvalue="Application.MigrationGenerator" />
       <item itemvalue="Application.App" />
       <item itemvalue="Gradle.AppTest" />
-      <item itemvalue="Gradle.AppTest.mockTest" />
       <item itemvalue="Gradle.AppTest.testStore" />
+      <item itemvalue="Gradle.AppTest.testCheckMockUrl" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.AppTest" />
+        <item itemvalue="Gradle.AppTest.testCheckMockUrl" />
         <item itemvalue="Gradle.AppTest.testStore" />
         <item itemvalue="Application.App" />
         <item itemvalue="Application.MigrationGenerator" />
-        <item itemvalue="Gradle.AppTest.mockTest" />
       </list>
     </recent_temporary>
   </component>
