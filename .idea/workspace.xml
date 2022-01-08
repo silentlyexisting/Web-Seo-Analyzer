@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hexlet/code/domain/UrlCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/h2/1.0__initial.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/model/1.0__initial.model.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dbmigration/postgres/1.0__initial.sql" beforeDir="false" />
-    </list>
+    <list default="true" id="f63e237f-4e3c-4f2f-b66d-b6e3d2efb030" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +92,7 @@
       <recent name="hexlet.code" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MigrationGenerator">
+  <component name="RunManager" selected="Gradle.AppTest">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hexlet.code.App" />
       <module name="app.main" />
