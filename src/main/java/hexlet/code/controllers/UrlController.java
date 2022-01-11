@@ -8,6 +8,7 @@ import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -59,6 +60,7 @@ public class UrlController {
 
         Map<Long, UrlCheck> checks = new QUrlCheck()
                 .url.id.asMapKey()
+                .createdAt.desc()
                 .statusCode.desc()
                 .findMap();
 
@@ -86,17 +88,32 @@ public class UrlController {
 
     public static Handler checkUrl = ctx -> {
         Long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+        try {
+            Url url = new QUrl()
+                    .id.equalTo(id)
+                    .findOne();
 
-        Url url = new QUrl()
-                .id.equalTo(id)
-                .findOne();
+            HttpResponse<String> response = Unirest
+                    .get(url.getName())
+                    .asString();
 
+            UrlCheck urlCheck = createUrlCheck(response, url);
+            urlCheck.save();
+        } catch (UnirestException exception) {
+            ctx.status(HttpCode.UNPROCESSABLE_ENTITY);
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.sessionAttribute("flash", "Что-то пошло не так (Проверка не удалась)");
+            ctx.redirect("/urls/" + id);
+            return;
+        }
+
+        ctx.sessionAttribute("flash-type", "success");
+        ctx.sessionAttribute("flash", "Страница успешно проверена");
+        ctx.redirect("/urls/" + id);
+    };
+
+    private static UrlCheck createUrlCheck(HttpResponse<String> response, Url url) {
         UrlCheck urlCheck = new UrlCheck();
-
-        HttpResponse<String> response = Unirest
-                .get(url.getName())
-                .asString();
-
         String body = response.getBody();
         Document doc = Jsoup.parse(body);
 
@@ -112,10 +129,6 @@ public class UrlController {
         String h1 = h1Element != null ? h1Element.text() : "";
         urlCheck.setH1(h1);
 
-        urlCheck.save();
-
-        ctx.sessionAttribute("flash-type", "success");
-        ctx.sessionAttribute("flash", "Страница успешно проверена");
-        ctx.redirect("/urls/" + id);
-    };
+        return urlCheck;
+    }
 }
